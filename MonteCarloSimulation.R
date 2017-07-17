@@ -21,7 +21,7 @@ BlackScholes <- function(S, K, Rf, T, sigma,d) {
 
 #B.Forutsetninger 
 K<- 100 #Strike price
-T <- 1  # Tid i  år
+T <- 2  # Tid i  år
 S_0 <- 100 #Pris på aksje i periode 0
 ExpVol<- 0.3      # Forventet volatilitet
 d <-0.00        # Forventet utbytte kontinuerlig
