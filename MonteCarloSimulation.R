@@ -66,18 +66,22 @@ for( i in (1:itr))
 }
 close(pb)
 
-Verdi<-unlist(ifelse(Simulering[drifts,!"Tid"]-K>0,Simulering[drifts,!"Tid"]-K,0))
-Verdi<-Verdi*exp(-T*Rf)
+PayoffCall<-unlist(ifelse(Simulering[drifts,!"Tid"]-K>0,Simulering[drifts,!"Tid"]-K,0))
+PayoffCall<-PayoffCall*exp(-T*Rf)
+PayoffPut<-unlist(ifelse(K-Simulering[drifts,!"Tid"]>0,K-Simulering[drifts,!"Tid"],0))
+PayoffPut<-PayoffPut*exp(-T*Rf)
 #Set tid først
 setcolorder(Simulering,c("Tid",paste0("Simulering",1:itr)))
 #F.Plot Resultater
-
 
 
 #G.Rask simulering
 
 
 #H.Resultater
-CallValue=mean(Verdi)
-CallValue
+Call=mean(PayoffCall)
+Call
+Put=mean(PayoffPut)
+Put
 BlackScholes(S_0,K,Rf,T,ExpVol,d)
+
