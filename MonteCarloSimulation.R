@@ -30,3 +30,54 @@ itr<-1000# Antall iterasjoner
 N<-itr*1000
 Periode<-365 #Antall perioder per år
 drifts<-Periode*T
+
+
+#C.Forkalkulasjoner 
+dt<- 1/Periode 
+nudt<- (Rf - d - 0.5 * (ExpVol^ 2))* dt
+sigsdt<-ExpVol * sqrt(dt)
+
+#D.DataTable
+Names<-as.character(paste0("Simulering",1:itr))
+m<-matrix(0,nrow = drifts,ncol=itr)
+Simulering<-data.table(m) 
+m<-NULL
+setnames(Simulering,Names)
+Simulering[,Tid:=1:drifts]
+
+# create progress bar
+pb <- winProgressBar(title = "progress bar", min = 0,
+                     max = itr,width = 300)
+
+#E. Simulering-> lag illustrasjon
+for( i in (1:itr))
+{
+  dS<-S_0
+  
+  for (j in (1:drifts))
+  {
+    eps<-rnorm(1, mean = 0, sd = 1)
+    dS<-dS * exp(nudt +sigsdt*eps)
+    set(Simulering,j,i,dS)
+    setWinProgressBar(pb, i, title=paste( round(i/itr*100, 0),
+                                          "% done"))
+  }
+  
+}
+close(pb)
+
+Verdi<-unlist(ifelse(Simulering[drifts,!"Tid"]-K>0,Simulering[drifts,!"Tid"]-K,0))
+Verdi<-Verdi*exp(-T*Rf)
+#Set tid først
+setcolorder(Simulering,c("Tid",paste0("Simulering",1:itr)))
+#F.Plot Resultater
+
+
+
+#G.Rask simulering
+
+
+#H.Resultater
+CallValue=mean(Verdi)
+CallValue
+BlackScholes(S_0,K,Rf,T,ExpVol,d)
