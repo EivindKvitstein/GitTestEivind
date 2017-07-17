@@ -18,3 +18,15 @@ BlackScholes <- function(S, K, Rf, T, sigma,d) {
   
   values
 }
+
+#B.Forutsetninger 
+K<- 100 #Strike price
+T <- 1  # Tid i  år
+S_0 <- 100 #Pris på aksje i periode 0
+ExpVol<- 0.3      # Forventet volatilitet
+d <-0.00        # Forventet utbytte kontinuerlig
+Rf<-0.05;   # Risikofri rente
+itr<-1000# Antall iterasjoner
+N<-itr*1000
+Periode<-365 #Antall perioder per år
+drifts<-Periode*T
