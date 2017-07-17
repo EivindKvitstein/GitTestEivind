@@ -85,3 +85,4 @@ Put=mean(PayoffPut)
 Put
 BlackScholes(S_0,K,Rf,T,ExpVol,d)
 
+#ÆØÅ
