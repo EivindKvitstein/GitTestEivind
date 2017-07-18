@@ -73,6 +73,9 @@ PayoffPut<-PayoffPut*exp(-T*Rf)
 #Set tid først
 setcolorder(Simulering,c("Tid",paste0("Simulering",1:itr)))
 #F.Plot Resultater
+Simulering[,Gjennomsnitt:=apply(.SD, 1, mean), .SDcols=paste0("Simulering",1:itr), by=Tid]
+ts.plot(Simulering[,!"Tid"], main="Simulering av aksjeprisen",xlab="Tid",ylab="Aksjepris")
+lines(Simulering$Gjennomsnitt, col="red")
 
 
 #G.Rask simulering
